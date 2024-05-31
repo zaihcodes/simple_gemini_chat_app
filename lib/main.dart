@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gemini_gpt/home_screen.dart';
+import 'package:gemini_gpt/onboarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const OnBoardingScreen(),
     );
   }
 }
