@@ -19,29 +19,27 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 3,
+        backgroundColor: theme.colorScheme.surface,
+        elevation: 1,
         centerTitle: false,
-        title: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.bolt),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text('Gemini gpt'),
-                ],
-              ),
-              Icon(Icons.voice_chat)
-            ],
-          ),
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.bolt),
+                SizedBox(
+                  width: 10,
+                ),
+                Text('Gemini gpt'),
+              ],
+            ),
+            Icon(Icons.voice_chat)
+          ],
         ),
       ),
       body: Column(
@@ -60,8 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: message.isUser
-                              ? Colors.greenAccent
-                              : Colors.grey.shade400,
+                              ? theme.colorScheme.primary
+                              : theme.colorScheme.secondary,
                           borderRadius: BorderRadius.only(
                               topLeft: message.isUser
                                   ? const Radius.circular(20)
@@ -74,9 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         child: Text(
                           message.text,
-                          style: TextStyle(
-                            color: message.isUser ? Colors.black : Colors.black,
-                          ),
+                          style: message.isUser
+                              ? theme.textTheme.bodyMedium!
+                                  .copyWith(color: Colors.black)
+                              : theme.textTheme.bodySmall,
                         ),
                       ),
                     ),
@@ -104,18 +103,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   Expanded(
                     child: TextField(
                       controller: _controller,
-                      decoration: const InputDecoration(
+                      style: theme.textTheme.titleSmall,
+                      decoration: InputDecoration(
                         hintText: 'Enter your message',
+                        hintStyle: theme.textTheme.titleSmall!
+                            .copyWith(color: Colors.grey),
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 20),
                       ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {},
-                    child: const Icon(
+                    child: Icon(
                       Icons.send,
-                      color: Colors.greenAccent,
+                      color: theme.colorScheme.primary,
                       size: 30,
                     ),
                   ),

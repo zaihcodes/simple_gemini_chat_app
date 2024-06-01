@@ -6,30 +6,33 @@ class OnBoardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Column(
+            Column(
               children: [
                 Text(
                   'Your AI Assistant',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.green,
+                    color: theme.colorScheme.primary,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
-                Text(
+                const Text(
                   'Using this software, you can ask you questions and receive articles using artificial intelligence assistant',
-                  style: TextStyle(fontSize: 16, color: Colors.black54),
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
                 )
               ],
             ),
@@ -48,19 +51,23 @@ class OnBoardingScreen extends StatelessWidget {
                     (route) => false);
               },
               style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.primary,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Continue'),
-                  SizedBox(
+                  Text(
+                    'Continue',
+                    style: TextStyle(color: theme.colorScheme.surface),
+                  ),
+                  const SizedBox(
                     width: 8,
                   ),
-                  Icon(Icons.arrow_forward)
+                  Icon(Icons.arrow_forward, color: theme.colorScheme.surface)
                 ],
               ),
             )

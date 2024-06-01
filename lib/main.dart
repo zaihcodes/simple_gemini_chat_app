@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gemini_gpt/app_theme.dart';
 import 'package:gemini_gpt/onboarding_screen.dart';
 
 void main() {
@@ -13,10 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
-      ),
+      theme: darkMode,
       home: const OnBoardingScreen(),
     );
   }
