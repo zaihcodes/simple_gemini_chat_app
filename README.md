@@ -1,16 +1,13 @@
-# gemini_gpt
+# Gemini GPT Chat App
 
-A new Flutter project.
+This is a simple Flutter application that integrates Gemini Generative AI to create a chat interface. The app uses Riverpod for state management and supports both dark and light modes.
 
-## Getting Started
+## Features
+Chat Interface: Communicate with Gemini Generative AI.
+State Management: Utilizes Riverpod for efficient state management.
+Dark and Light Modes: Toggle between dark and light themes for be
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="./screenshots/Screenshot_1.png" height="600em" /> <img src="./screenshots/Screenshot_2.png" height="600em" /> <img src="./screenshots/Screenshot_3.png" height="600em" />
