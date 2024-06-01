@@ -28,11 +28,10 @@ class OnBoardingScreen extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const Text(
+                Text(
                   'Using this software, you can ask you questions and receive articles using artificial intelligence assistant',
                   style: TextStyle(
-                    fontSize: 16,
-                  ),
+                      fontSize: 16, color: theme.colorScheme.onSurface),
                 )
               ],
             ),

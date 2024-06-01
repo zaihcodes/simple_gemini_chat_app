@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gemini_gpt/models/message.dart';
+import 'package:gemini_gpt/services/theme_notifier.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<Message> _messages = [
     Message(text: "Hi", isUser: true),
@@ -17,8 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
     Message(text: "I'm good, how about you", isUser: true),
     Message(text: "I'm excellent", isUser: false),
   ];
+
   @override
   Widget build(BuildContext context) {
+    final currentTheme = ref.watch(themeProvider);
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -26,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: theme.colorScheme.surface,
         elevation: 1,
         centerTitle: false,
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
+            const Row(
               children: [
                 Icon(Icons.bolt),
                 SizedBox(
@@ -38,7 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text('Gemini gpt'),
               ],
             ),
-            Icon(Icons.voice_chat)
+            // Icon(Icons.voice_chat),
+            GestureDetector(
+              onTap: () {
+                ref.read(themeProvider.notifier).toggleTheme();
+              },
+              child: currentTheme == ThemeMode.light
+                  ? const Icon(Icons.dark_mode)
+                  : const Icon(Icons.light_mode),
+            ),
           ],
         ),
       ),
