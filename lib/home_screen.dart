@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gemini_gpt/models/message.dart';
 import 'package:gemini_gpt/services/theme_notifier.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -12,12 +14,32 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
-  final List<Message> _messages = [
-    Message(text: "Hi", isUser: true),
-    Message(text: "Hello, How are you ?", isUser: false),
-    Message(text: "I'm good, how about you", isUser: true),
-    Message(text: "I'm excellent", isUser: false),
-  ];
+  final List<Message> _messages = [];
+  bool _isLoading = false;
+
+  callGeminiModel() async {
+    try {
+      if (_controller.text.isNotEmpty) {
+        _messages.add(Message(text: _controller.text, isUser: true));
+        _isLoading = true;
+      }
+
+      final model = GenerativeModel(
+          model: 'gemini-pro', apiKey: dotenv.env['GOOGLE_API_KEY']!);
+      final prompt = _controller.text.trim();
+      final content = [Content.text(prompt)];
+      final response = await model.generateContent(content);
+
+      setState(() {
+        _messages.add(Message(text: response.text!, isUser: false));
+        _isLoading = false;
+      });
+
+      _controller.clear();
+    } catch (e) {
+      debugPrint("Error : $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,12 +148,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
-                    child: Icon(
-                      Icons.send,
-                      color: theme.colorScheme.primary,
-                      size: 30,
-                    ),
+                    onTap: callGeminiModel,
+                    child: _isLoading
+                        ? SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator(
+                              color: theme.colorScheme.primary,
+                            ),
+                          )
+                        : Icon(
+                            Icons.send,
+                            color: theme.colorScheme.primary,
+                            size: 30,
+                          ),
                   ),
                 ],
               ),
